@@ -19,7 +19,7 @@ def draw_barplot(x:str, y:str, data:pd.DataFrame):
     if len(data[x].unique()) > 2:
         for u in data[x].unique():
             test.append(data.loc[data[x] == u, y])
-        result = spst.f_oneway(*test)[0]
+        result = spst.f_oneway(*test)
         return print('F-score : {}, P-value : {}'.format(result[0], result[1]))
     else:
         for u in data[x].unique():

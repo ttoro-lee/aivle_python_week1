@@ -36,8 +36,6 @@ def draw_scatter(x:str, y:str, data=pd.DataFrame):
     sns.regplot(x=x, y=y, data=data)
     plt.show()
 
-    plt.tight_layout()
-
     result = spst.pearsonr(data[x],data[y])
 
     return print('Pearson : {}, p-value : {}'.format(result[0], result[1]))

@@ -4,6 +4,7 @@ import scipy.stats as spst
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# info : num -> target : num
 def draw_barplot(x:str, y:str, data:pd.DataFrame):
 
     sns.barplot(x=x, y=y, data=data)
@@ -18,15 +19,16 @@ def draw_barplot(x:str, y:str, data:pd.DataFrame):
     if len(data[x].unique()) > 2:
         for u in data[x].unique():
             test.append(data.loc[data[x] == u, y])
-        return print(spst.f_oneway(*test))
+        result = spst.f_oneway(*test)[0]
+        return print('F-score : {}, P-value : {}'.format(result[0], result[1]))
     else:
         for u in data[x].unique():
             test.append(data.loc[data[x] == u, y])
-        return print(spst.ttest_ind(*test))
-
+        result = spst.ttest_ind(*test)
+        return print('T-score : {}, P-value : {}'.format(result[0], result[1]))
+    
+# info : category -> target : num
 def draw_scatter(x:str, y:str, data=pd.DataFrame):
-
-    plt.figure(figsize=(12,8))
 
     sns.jointplot(x=x, y=y, data=data)
     plt.show()
@@ -38,6 +40,6 @@ def draw_scatter(x:str, y:str, data=pd.DataFrame):
 
     result = spst.pearsonr(data[x],data[y])
 
-    return print('pearson : {}, p-value : {}'.format(result[0], result[1]))
+    return print('Pearson : {}, p-value : {}'.format(result[0], result[1]))
         
     
